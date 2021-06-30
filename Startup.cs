@@ -1,4 +1,5 @@
-﻿using BaltaFunctions.Services;
+﻿using BaltaFunctions.Clients;
+using BaltaFunctions.Services;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,7 @@ namespace BaltaFunctions
         {
             builder.Services.AddTransient<MessageBusService>();
             builder.Services.AddTransient<NotificationService>();
+            builder.Services.AddTransient<OrderApiClient>();
         }
     }
 }
