@@ -33,16 +33,15 @@ namespace BaltaFunctions
                 Status = EOrderStatus.Paid
             }, cancellationToken);
 
-            await _messageService.SendAsync(order, "shipping");
-            await _notificationService.NotifyAsync(order.Customer, $"Olá {order.Customer}, seu pedido {order.Number} foi pago e está em separação!");
+            await _notificationService.NotifyAsync(order.Customer, $"[FUNC] Olá {order.Customer}, seu pedido {order.Number} foi pago e está em separação no estoque!");
         }
 
         [FunctionName("RefundOrderFunction")]
         public async Task Run([ServiceBusTrigger("refund", Connection = "microsservicos_SERVICEBUS")] Order order, CancellationToken cancellationToken)
-            => await _notificationService.NotifyAsync(order.Customer, $"O pagamento do seu pedido {order.Number} no valor de {order.Total} foi estornado!");
+            => await _notificationService.NotifyAsync(order.Customer, $"[FUNC] O pagamento do seu pedido {order.Number} no valor de {order.Total} foi estornado!");
 
         [FunctionName("ShipOrderFunction")]
         public async Task ShipOrder([ServiceBusTrigger("shipping", Connection = "microsservicos_SERVICEBUS")] Order order, CancellationToken cancellationToken)
-            => await _notificationService.NotifyAsync(order.Customer, $"Olá {order.Customer}, seu pedido {order.Number} saiu para entrega!");
+            => await _notificationService.NotifyAsync(order.Customer, $"[FUNC] Olá {order.Customer}, seu pedido {order.Number} saiu para entrega!");
     }
 }
